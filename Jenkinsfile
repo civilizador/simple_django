@@ -26,7 +26,7 @@ pipeline {
     }
     stage('Push') {
       steps {
-        sh 'docker push lloydmatereke/jenkins-docker-hub'
+        sh 'docker push civilizador/sample_django'
       }
     }
   }
