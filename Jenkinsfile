@@ -21,7 +21,7 @@ pipeline {
                 // Build the Docker image
                 sh "docker build -t ${env.DOCKER_REGISTRY}:latest ."
             }
-
+        }
         
         stage('Push') {
             steps {
