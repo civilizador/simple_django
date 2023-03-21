@@ -24,15 +24,19 @@ pipeline {
     }
     stage('Login') {
       steps {
-        sh "echo 'LOGIN STAGE: ' "
-        sh "echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin"
-      }
+        container('docker') {
+            sh "echo 'LOGIN STAGE: ' "
+            sh "echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin"
+        }
+        }
     }
     stage('Push') {
       steps {
-        sh "echo 'PUSH STAGE: ' "
-        sh 'docker push civilizador/sample_django'
-      }
+        container('docker') {
+            sh "echo 'PUSH STAGE: ' "
+            sh 'docker push civilizador/sample_django'
+        }
+        }
     }
   }
 }
