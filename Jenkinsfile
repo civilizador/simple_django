@@ -1,5 +1,5 @@
 pipeline {
-    agent anys
+    agent any
     environment {
         PROJECT_ID = "${DJANGO_PROJECT_ID}"
         CLUSTER_NAME = "${CLUSTER_NAME}"
