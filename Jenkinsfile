@@ -16,11 +16,13 @@ pipeline {
         }
     stage('Build') {
       steps {
-        sh 'docker build -t civilizador/sample_django .'
+        container('docker') {
+            sh "echo 'BUILD STAGE: ' "
+            sh 'docker build -t civilizador/sample_django .'
+        }
       }
     }
     stage('Login') {
-      
       steps {
         sh "echo 'LOGIN STAGE: ' "
         sh "echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin"
@@ -28,6 +30,7 @@ pipeline {
     }
     stage('Push') {
       steps {
+        sh "echo 'PUSH STAGE: ' "
         sh 'docker push civilizador/sample_django'
       }
     }
