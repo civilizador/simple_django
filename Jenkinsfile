@@ -1,10 +1,10 @@
 pipeline {
-    agent any
+    agent anys
     environment {
-        PROJECT_ID = 'striped-bastion-329118'
-        CLUSTER_NAME = 'jenkins'
-        LOCATION = 'asia-southeast1-a'
-        CREDENTIALS_ID = 'kubernetes'
+        PROJECT_ID = ${DJANGO_PROJECT_ID}
+        CLUSTER_NAME = ${CLUSTER_NAME}
+        LOCATION = ${LOCATION}
+        CREDENTIALS_ID = "master-sql-379304"
     }
     
     stages {
