@@ -5,8 +5,9 @@ pipeline {
         CLUSTER_NAME = "${CLUSTER_NAME}"
         LOCATION = "${LOCATION}"
         CREDENTIALS_ID = "master-sql-379304"
-        DOCKER = "${docker}"
-        DOCKER_USER = "${docker_username}"
+        DOCKER_PASSWORD = "${docker}"
+        DOCKER_USERNAME = "${docker_username}"
+        DOCKER_REGISTRY = "civilizador/sample_django"
     }
     
     stages {
@@ -15,21 +16,22 @@ pipeline {
                 checkout scm
             }
         }
-        stage('Build image') {
+        stage('Build') {
             steps {
-                script {
-                    app = docker.build("arshad1914/pipeline:${env.BUILD_ID}")
-                    }
+                // Build the Docker image
+                sh "docker build -t ${env.DOCKER_REGISTRY}:latest ."
             }
-        }
+
         
-        stage('Push image') {
+        stage('Push') {
             steps {
-                script {
-                    { sh "docker login -u "${env.DOCKER_USER}" -p ${docker}" }
-                    app.push("${env.BUILD_ID}")
-                 }
-                                 
+                // Log in to the Docker registry
+                withCredentials([usernamePassword(credentialsId: 'docker-creds', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                    sh "docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}"
+                }
+
+                // Push the Docker image to the registry
+                sh "docker push ${env.DOCKER_REGISTRY}:latest"
             }
         }
     
