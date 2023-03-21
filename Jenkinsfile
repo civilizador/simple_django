@@ -5,6 +5,8 @@ pipeline {
         CLUSTER_NAME = "${CLUSTER_NAME}"
         LOCATION = "${LOCATION}"
         CREDENTIALS_ID = "master-sql-379304"
+        DOCKER = "${docker}"
+        DOCKER_USER = "${docker_username}"
     }
     
     stages {
@@ -24,11 +26,7 @@ pipeline {
         stage('Push image') {
             steps {
                 script {
-                    withCredentials( \
-                                 [string(credentialsId: 'dockerhub',\
-                                 variable: 'dockerhub')]) {
-                        sh "docker login -u arshad1914 -p ${dockerhub}"
-                    }
+                    { sh "docker login -u "${env.DOCKER_USER}" -p ${docker}" }
                     app.push("${env.BUILD_ID}")
                  }
                                  
