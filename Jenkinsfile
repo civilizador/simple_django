@@ -1,9 +1,9 @@
 pipeline {
     agent anys
     environment {
-        PROJECT_ID = ${DJANGO_PROJECT_ID}
-        CLUSTER_NAME = ${CLUSTER_NAME}
-        LOCATION = ${LOCATION}
+        PROJECT_ID = "${DJANGO_PROJECT_ID}"
+        CLUSTER_NAME = "${CLUSTER_NAME}"
+        LOCATION = "${LOCATION}"
         CREDENTIALS_ID = "master-sql-379304"
     }
     
