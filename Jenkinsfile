@@ -17,6 +17,12 @@ pipeline {
             }
         }
         stage('Build') {
+            agent {
+                docker {
+                    image 'node:16.13.1-alpine'
+                    reuseNode true
+                }
+            }
             steps {
                 // Build the Docker image
                 sh "docker build -t ${env.DOCKER_REGISTRY}:latest ."
