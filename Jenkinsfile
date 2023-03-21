@@ -20,8 +20,10 @@ pipeline {
       }
     }
     stage('Login') {
+      
       steps {
-        sh 'echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin'
+        sh "echo 'LOGIN STAGE: ' "
+        sh "echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin"
       }
     }
     stage('Push') {
@@ -30,9 +32,4 @@ pipeline {
       }
     }
   }
-//   post {
-//     always {
-//       sh 'docker logout'
-//     }
-//   }
 }
