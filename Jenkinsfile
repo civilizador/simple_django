@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    def app
     environment {
         PROJECT_ID = "${DJANGO_PROJECT_ID}"
         CLUSTER_NAME = "${CLUSTER_NAME}"
@@ -25,19 +25,32 @@ pipeline {
             }
             steps {
                 // Build the Docker image
-                sh "docker build -t ${env.DOCKER_REGISTRY}:latest ."
+                app = docker.build("${env.DOCKER_REGISTRY}:latest") 
             }
         }
+
+    stage('Test image') {
+        /* Ideally, we would run a test framework against our image.
+         * For this example, we're using a Volkswagen-type approach ;-) */
+
+        app.inside {
+            sh 'echo "Tests passed"'
+        }
+    }
         
         stage('Push') {
             steps {
-                // Log in to the Docker registry
-                withCredentials([usernamePassword(credentialsId: 'docker-creds', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-                    sh "docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}"
+                docker.withRegistry("${env.DOCKER_REGISTRY}", 'docker-hub') {
+                    app.push("${env.BUILD_ID}")
+                    app.push("latest")
                 }
+                // Log in to the Docker registry
+                // withCredentials([usernamePassword(credentialsId: 'docker-hub', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                //     sh "docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}"
+                // }
 
-                // Push the Docker image to the registry
-                sh "docker push ${env.DOCKER_REGISTRY}:latest"
+                // // Push the Docker image to the registry
+                // sh "docker push ${env.DOCKER_REGISTRY}:latest"
             }
         }
     
@@ -58,3 +71,4 @@ pipeline {
             }
         }    
 }
+
