@@ -1,5 +1,5 @@
 pipeline {
-  agent any
+  agent { docker 'docker' }
   options {
     buildDiscarder(logRotator(numToKeepStr: '5'))
   }
@@ -9,6 +9,11 @@ pipeline {
     DOCKER_USERNAME = "${docker_username}"
   }
   stages {
+    stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
     stage('Build') {
       steps {
         sh 'docker build -t civilizador/sample_django .'
