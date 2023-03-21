@@ -4,7 +4,7 @@ pipeline {
         PROJECT_ID = "${DJANGO_PROJECT_ID}"
         CLUSTER_NAME = "${CLUSTER_NAME}"
         LOCATION = "${LOCATION}"
-        CREDENTIALS_ID = "master-sql-379304"
+        CREDENTIALS_ID = "docker-hub"
         DOCKER_PASSWORD = "${docker}"
         DOCKER_USERNAME = "${docker_username}"
         DOCKER_REGISTRY = "civilizador/sample_django"
