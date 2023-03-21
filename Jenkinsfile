@@ -1,4 +1,5 @@
 pipeline {
+  
   agent {
         docker { image 'node:7-alpine' }
     }
@@ -8,7 +9,6 @@ pipeline {
     DOCKER_PASSWORD = "${docker}"
     DOCKER_USERNAME = "${docker_username}"
   }
-
   stages {
     stage('Checkout') {
             steps {
@@ -16,13 +16,6 @@ pipeline {
             }
         }
   
-    // stage('Install Docker') {
-    //   steps {
-    //     sh 
-    //     sh 'curl -fsSL https://get.docker.com -o get-docker.sh'
-    //     sh 'sudo sh get-docker.sh'
-    //   }
-    // }
     stage('Build') {
       steps {
             sh "echo 'BUILD STAGE: ' "
