@@ -13,24 +13,23 @@ labels:
 spec:
   # Use service account that can deploy to all namespaces
   serviceAccountName: cd-jenkins
-  containers:
-  - name: dind-container
-    image: docker:20.10-dind
-    securityContext:
-      privileged: true
-    volumeMounts:
-      - name: dockersock
-        mountPath: /var/run/docker.sock
+    containers:
+        - name: dind-container
+            image: docker:20.10-dind
+            securityContext:
+            privileged: true
+            volumeMounts:
+            - name: dockersock
+                mountPath: "/var/run/docker.sock"
+        - name: kubectl
+            image: gcr.io/cloud-builders/kubectl
+            command:
+            - cat
+            tty: true
     volumes:
         - name: dockersock
         hostPath:
-            path: /var/run/docker.sock
-            
-  - name: kubectl
-    image: gcr.io/cloud-builders/kubectl
-    command:
-    - cat
-    tty: true
+            path: "/var/run/docker.sock"
 """
 }
   }
