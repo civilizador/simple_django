@@ -48,7 +48,7 @@ spec:
   
     stage('Build') {
       steps {
-        container('docker') {
+        container('golang') {
             sh "echo 'BUILD STAGE: ' "
             sh 'docker build -t civilizador/sample_django .'
         }
