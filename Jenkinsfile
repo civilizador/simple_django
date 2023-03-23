@@ -16,6 +16,9 @@ spec:
   containers:
   - name: docker
     image: docker:20.10-dind
+    volumeMounts:
+      - name: dockersock
+        mountPath: "/var/run/docker.sock"
     command:
     - /bin/ash
     tty: true
