@@ -55,12 +55,13 @@ spec:
         }
     }
     stage('Login') {
-            container('gcloud') {
       steps {
+                    container('gcloud') {
             sh "echo 'LOGIN STAGE: ' "
             sh "echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin"
         }
-            }
+        }
+            
     }
     stage('Push') {
       steps {
