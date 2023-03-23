@@ -15,9 +15,7 @@ spec:
   serviceAccountName: cd-jenkins
   containers:
   - name: docker
-    image: docker:20.10.23-alpine3.17
-    command:
-    - systemctl start docker
+    image: docker:23.0-cli
     tty: true
   - name: gcloud
     image: gcr.io/cloud-builders/gcloud
