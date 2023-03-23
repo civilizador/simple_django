@@ -1,10 +1,7 @@
 pipeline {
   
 agent {
-    kubernetes {
-      label 'test-app'  // all your pods will be named with this prefix, followed by a unique id
-      defaultContainer 'docker'  // define a default container if more than a few stages use it, will default to jnlp container
-    }
+    kubernetes 
 }
 
   environment {
