@@ -41,7 +41,7 @@ spec:
   }
   environment {
     DOCKERHUB_CREDENTIALS = credentials('docker-hub')
-    DOCKER_PASSWORD = "${docker}"
+    DOCKER_PASSWORD = "${docker_password}"
     DOCKER_USERNAME = "${docker_username}"
   }
 
