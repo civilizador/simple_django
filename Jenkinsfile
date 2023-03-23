@@ -16,6 +16,8 @@ spec:
   containers:
   - name: docker
     image: docker:20.10.23-alpine3.17
+    command:
+    - systemctl start docker
     tty: true
   - name: gcloud
     image: gcr.io/cloud-builders/gcloud
