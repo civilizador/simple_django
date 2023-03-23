@@ -12,19 +12,24 @@ labels:
   component: ci
 spec:
   # Use service account that can deploy to all namespaces
-  serviceAccountName: cd-jenkins      
+  serviceAccountName: cd-jenkins
   containers:
   - name: docker
     image: docker:20.10-dind
     command:
     - cat
     tty: true
+  - name: gcloud
+    image: gcr.io/cloud-builders/gcloud
+    command:
+    - cat
+    tty: true
   - name: kubectl
-      image: gcr.io/cloud-builders/kubectl
-      command:
-      - cat
-      tty: true
-"""  
+    image: gcr.io/cloud-builders/kubectl
+    command:
+    - cat
+    tty: true
+"""
 }
   }
   environment {
