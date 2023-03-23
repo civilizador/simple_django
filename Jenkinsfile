@@ -14,16 +14,18 @@ spec:
   # Use service account that can deploy to all namespaces
   serviceAccountName: cd-jenkins
   containers:
-  - name: docker
-    image: docker:23.0-cli
-    command:
-    - systemctl start docker
-    tty: true
-  - name: gcloud
-    image: gcr.io/cloud-builders/gcloud
-    command:
-    - cat
-    tty: true
+  - name: dind-container
+    image: docker:20.10-dind
+    securityContext:
+      privileged: true
+    volumeMounts:
+      - name: dockersock
+        mountPath: /var/run/docker.sock
+    volumes:
+        - name: dockersock
+        hostPath:
+            path: /var/run/docker.sock
+            
   - name: kubectl
     image: gcr.io/cloud-builders/kubectl
     command:
