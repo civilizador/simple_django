@@ -17,7 +17,7 @@ spec:
   - name: docker
     image: docker:20.10-dind
     command:
-    - cat
+    - /bin/ash
     tty: true
   - name: gcloud
     image: gcr.io/cloud-builders/gcloud
@@ -29,6 +29,10 @@ spec:
     command:
     - cat
     tty: true
+  volumes:
+  - name: dockersock
+    hostPath:
+        path: "/var/run/docker.sock"
 """
 }
   }
