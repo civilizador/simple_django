@@ -24,9 +24,11 @@ agent {
   
     stage('Build') {
       steps {
+        container('docker') { 
             sh "echo 'BUILD STAGE: ' "
             sh 'docker build -t civilizador/sample_django .'
-      }
+        }
+        }
     }
     stage('Login') {
       steps {
