@@ -41,22 +41,22 @@ spec:
   
   stages {
     stage('Checkout') {
-
-            steps {
+            steps  {
                 checkout scm
             }
         }
   
     stage('Build') {
       steps {
-
+        container('docker') {
             sh "echo 'BUILD STAGE: ' "
             sh 'docker build -t civilizador/sample_django .'
-
+        }
         }
     }
     stage('Login') {
       steps {
+
             sh "echo 'LOGIN STAGE: ' "
             sh "echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin"
         }
