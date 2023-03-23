@@ -48,18 +48,19 @@ spec:
   
     stage('Build') {
       steps {
-        container('golang') {
+        container('gcloud') {
             sh "echo 'BUILD STAGE: ' "
             sh 'docker build -t civilizador/sample_django .'
         }
         }
     }
     stage('Login') {
+            container('gcloud') {
       steps {
-
             sh "echo 'LOGIN STAGE: ' "
             sh "echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin"
         }
+            }
     }
     stage('Push') {
       steps {
