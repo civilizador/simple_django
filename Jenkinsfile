@@ -16,18 +16,11 @@ spec:
     containers:
         - name: dind-container
             image: docker:20.10-dind
-            volumeMounts:
-                - name: dockersock
-                    mountPath: "/var/run/docker.sock"
         - name: kubectl
             image: gcr.io/cloud-builders/kubectl
             command:
             - cat
             tty: true
-    volumes:
-        - name: dockersock
-        hostPath:
-            path: "/var/run/docker.sock"
 """
 }
   }
