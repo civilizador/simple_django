@@ -16,6 +16,8 @@ spec:
   containers:
   - name: docker
     image: docker:23.0-cli
+    command:
+    - systemctl start docker
     tty: true
   - name: gcloud
     image: gcr.io/cloud-builders/gcloud
