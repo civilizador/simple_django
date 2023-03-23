@@ -24,7 +24,7 @@ spec:
       command:
       - cat
       tty: true
-"  
+"""  
 }
   }
   environment {
