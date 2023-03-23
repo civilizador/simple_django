@@ -47,19 +47,19 @@ spec:
         }
   
     stage('Build') {
-      steps {
-        container('gcloud') {
-            sh "echo 'BUILD STAGE: ' "
-            sh 'docker build -t civilizador/sample_django .'
-        }
+        steps {
+            container('gcloud') {
+                sh "echo 'BUILD STAGE: ' "
+                sh 'docker build -t civilizador/sample_django .'
+            }
         }
     }
     stage('Login') {
-      steps {
-                    container('gcloud') {
-            sh "echo 'LOGIN STAGE: ' "
-            sh "echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin"
-        }
+        steps {
+            container('gcloud') {
+                sh "echo 'LOGIN STAGE: ' "
+                sh "echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin"
+            }
         }
             
     }
