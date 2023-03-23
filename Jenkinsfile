@@ -1,9 +1,11 @@
 pipeline {
   
-agent {
-    kubernetes 
-}
-
+    agent { 
+        docker { 
+            image 'node:12.16.2'
+            args '-p 3000:3000'
+        } 
+    }
   environment {
     DOCKERHUB_CREDENTIALS = credentials('docker-hub')
     DOCKER_PASSWORD = "${docker}"
@@ -21,10 +23,10 @@ agent {
   
     stage('Build') {
       steps {
-        container('docker') { 
+
             sh "echo 'BUILD STAGE: ' "
             sh 'docker build -t civilizador/sample_django .'
-        }
+
         }
     }
     stage('Login') {
