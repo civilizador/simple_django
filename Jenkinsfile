@@ -15,7 +15,7 @@ spec:
   serviceAccountName: cd-jenkins
   containers:
   - name: docker
-    image: 20.10.23-alpine3.17
+    image: docker:20.10.23-alpine3.17
     command:
     - cat
     tty: true
