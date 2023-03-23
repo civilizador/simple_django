@@ -61,25 +61,23 @@ spec:
             }
         }
     }
-    // stage('Login') {
-    //     steps {
-    //         container('docker') {
-    //             sh "echo 'LOGIN STAGE: ' "
-    //             sh "echo 'USERNAME: $DOCKER_USERNAME ' "
-    //             sh "echo 'PASSWORD: $DOCKER_PASSWORD ' "
+    stage('Login') {
+        steps {
+            container('docker') {
+                sh "echo 'LOGIN STAGE: ' "
+                sh "echo 'USERNAME: $DOCKER_USERNAME ' "
+                sh "echo 'PASSWORD: $DOCKER_PASSWORD ' "
 
-    //             sh "echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin"
-    //         }
-    //     }
+                sh "echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin"
+            }
+        }
             
-    // }
+    }
     stage('Push') {
       steps {
         container('docker') {
-            docker.withRegistry('civilizador/sample_django', 'docker-hub') {
-                app.push("${env.BUILD_NUMBER}")
-                app.push("latest")
-            }
+            sh "echo 'PUSH STAGE: ' "
+            sh 'docker push civilizador/sample_django'
         }
       }
     }
