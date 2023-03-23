@@ -14,8 +14,8 @@ spec:
   # Use service account that can deploy to all namespaces
   serviceAccountName: cd-jenkins
   containers:
-  - name: golang
-    image: golang:1.10
+  - name: docker
+    image: 20.10.23-alpine3.17
     command:
     - cat
     tty: true
@@ -48,7 +48,7 @@ spec:
   
     stage('Build') {
         steps {
-            container('gcloud') {
+            container('docker') {
                 sh "echo 'BUILD STAGE: ' "
                 sh 'docker build -t civilizador/sample_django .'
             }
@@ -56,7 +56,7 @@ spec:
     }
     stage('Login') {
         steps {
-            container('gcloud') {
+            container('docker') {
                 sh "echo 'LOGIN STAGE: ' "
                 sh "echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin"
             }
@@ -65,9 +65,11 @@ spec:
     }
     stage('Push') {
       steps {
+        container('docker') {
             sh "echo 'PUSH STAGE: ' "
             sh 'docker push civilizador/sample_django'
         }
+      }
     }
   }
 }
