@@ -14,7 +14,7 @@ spec:
   # Use service account that can deploy to all namespaces
   serviceAccountName: cd-jenkins      
   containers:
-  - name: dind-container
+  - name: docker
     image: docker:20.10-dind
     command:
     - cat
