@@ -91,7 +91,7 @@ spec:
         container('kubectl') {
         // Change deployed image in canary to the one we just built
           sh("helm repo add qalita-helm https://qalita-io.github.io/helm")
-          sh("helm install my-argocd qalita-helm/argocd --version 5.22.1")
+          sh("helm upgrade --install  my-argocd qalita-helm/argocd --version 5.22.1")
         }
       }
     }
