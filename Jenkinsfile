@@ -28,7 +28,7 @@ spec:
     - cat
     tty: true
   - name: kubectl
-    image: gcr.io/cloud-builders/kubectl
+    image: alpine/k8s:1.24.12
     command:
     - cat
     tty: true
@@ -78,5 +78,23 @@ spec:
         }
       }
     }
+
+    stage('Deploy Production') {
+      // Production branch
+      when { 
+        anyOf { 
+          branch 'main' 
+          branch 'master' 
+        }
+      }
+      steps{
+        container('kubectl') {
+        // Change deployed image in canary to the one we just built
+          sh("helm repo add qalita-helm https://qalita-io.github.io/helm")
+          sh("helm install my-argocd qalita-helm/argocd --version 5.22.1")
+        }
+      }
+    }
+
   }
 }
